@@ -1,3 +1,6 @@
+# Bash
+alias ll="ls -l"
+
 # Rails
 alias rr="rake routes"
 alias rrg="rake routes | grep "
@@ -10,6 +13,8 @@ alias gc="git checkout"
 alias gd="git diff --color"
 alias grр="git reset HEAD"
 alias gl="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold yellow)<%an>%Creset' --abbrev-commit --"
+alias glf="git log --color --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold yellow)<%an>%Creset' --abbrev-commit --"
+
 alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
 alias glist='for ref in $(git for-each-ref --sort=-committerdate --count=30 --format="%(refname)" refs/heads/ refs/remotes ); do git log -n1 $ref --pretty=format:"%Cgreen%cr%Creset %C(yellow)%d%Creset %C(bold blue)<%an>%Creset%n" | cat ; done | awk '"'! a["'$0'"]++'"
 
@@ -23,11 +28,11 @@ alias v='vim'
 alias flush-sidekiq="echo 'flushdb' | redis-cli"
 alias sidekiq-start="flush-sidekiq && sidekiq -C config/sidekiq.yml"
 
-# Capistrano
-alias cpd="cap production deploy"
-
 # Tmux
 alias tn="tmux new -s"
-alias ta="tmux attack -t"
+alias ta="tmux attach -t"
 alias ts="tmux switch -t"
 alias tsessions="tmux list-sessions"
+
+# BFG - clean git history
+alias bfg="java -jar ~/Library/bfg-1.12.13.jar"
