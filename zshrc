@@ -1,49 +1,53 @@
+# --- Homebrew (Apple Silicon) ---
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-ZSH=$HOME/.oh-my-zsh
+# --- History: big, shared across tabs, searchable ---
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt EXTENDED_HISTORY       # timestamps in history
+setopt SHARE_HISTORY          # share history between all sessions
+setopt INC_APPEND_HISTORY     # write immediately, not on shell exit
+setopt HIST_IGNORE_ALL_DUPS   # no duplicate entries
+setopt HIST_IGNORE_SPACE      # commands starting with space are not saved
+setopt HIST_REDUCE_BLANKS
+
+# --- Completion (case-insensitive) ---
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 export EDITOR=vim
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+# --- Prompt: current dir + git branch ---
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats ' %F{242}(%b)%f'
+setopt PROMPT_SUBST
+PROMPT='%F{cyan}%1~%f${vcs_info_msg_0_} %F{green}❯%f '
 
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+# --- Keybindings: standard (emacs-style) ---
+bindkey -e                        # Ctrl-A/E/W/U/K work as expected
+bindkey '^[[1;3C' forward-word    # Alt-Right: jump word forward
+bindkey '^[[1;3D' backward-word   # Alt-Left: jump word back
 
-# Uncomment to change how many often would you like to wait before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
+# ↑/↓ search history filtered by what you already typed
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
 
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
+# --- fzf: Ctrl-R fuzzy history search, Ctrl-T fuzzy file picker ---
+source <(fzf --zsh)
 
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# --- Autosuggestions (ghost text from history; Ctrl-E or → accepts) ---
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(gitfast rvm npm rake gem bundler dircycle vi-mode notify cap ruby brew autojump coffee custom-aliases rails redis-cli kubectl)
-
-bindkey -v
-bindkey '^R' history-incremental-search-backward
-
-source $ZSH/oh-my-zsh.sh
-
-# Example aliases
+# --- Aliases ---
 source $HOME/.zsh-aliases
-source $HOME/.zsh-local
 
-# Customize to your needs...
+# --- Machine-local config, not tracked in git ---
+[[ -f $HOME/.zshrc.local ]] && source $HOME/.zshrc.local
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# tabtab source for electron-forge package
-# uninstall by removing these lines or running `tabtab uninstall electron-forge`
-[[ -f /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.zsh ]] && . /usr/local/lib/node_modules/electron-forge/node_modules/tabtab/.completions/electron-forge.zsh
+# --- Syntax highlighting (must be sourced last) ---
+source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
