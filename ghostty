@@ -1,0 +1,11 @@
+# Ghostty config — linked to ~/.config/ghostty/config by install.sh
+
+# Selecting text copies it straight to the system clipboard
+copy-on-select = clipboard
+
+# Option acts as Alt, so Alt-Left/Right word-jumps work in zsh
+macos-option-as-alt = true
+
+# Quality of life
+mouse-hide-while-typing = true
+window-save-state = always

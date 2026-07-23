@@ -3,6 +3,7 @@
 	email = ilya.hrytsuk@dayforce.com
 [alias]
 	co = checkout
+	ci = commit
 [core]
 	excludesfile = ~/.gitignore
 	editor = vim
@@ -13,6 +14,8 @@
 	autoSetupRemote = true
 [fetch]
 	prune = true
+[pull]
+	rebase = true
 [diff]
 	algorithm = histogram
 [merge]

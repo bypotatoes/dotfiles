@@ -43,6 +43,13 @@ Prerequisites: macOS with [Homebrew](https://brew.sh) installed.
 5. Open a new terminal. Verify: `Ctrl-R` opens fzf history search, typing shows
    gray autosuggestions, `gs` runs `git status`.
 
+6. **Claude Code layer** — clone and install
+   [bypotatoes/dotfiles-claude](https://github.com/bypotatoes/dotfiles-claude)
+   (settings, skills, memory) per its README.
+
+7. **gh auth** — run `gh auth login --web --git-protocol ssh` in a real terminal
+   (it needs an interactive TTY for the device-code prompt).
+
 ## What's here
 
 | File          | Purpose |
@@ -51,8 +58,9 @@ Prerequisites: macOS with [Homebrew](https://brew.sh) installed.
 | `zsh-aliases` | Shell + git aliases (`g`, `gs`, `ga`, `gc`, `gd`, `gr`, `gl`, `glf`, `gwc`). |
 | `gitconfig`   | Identity, `co` alias, modern defaults (`push.autoSetupRemote`, histogram diff, zdiff3 conflicts, rerere). |
 | `gitignore`   | Global ignores (macOS junk, vim swap). |
-| `Brewfile`    | fzf, zsh-autosuggestions, zsh-syntax-highlighting. |
-| `install.sh`  | Symlinks the above into `$HOME` as `.<name>`. |
+| `ghostty`     | Ghostty terminal: copy-on-select to clipboard, Option-as-Alt (needed for the Alt word-jumps), window restore. → `~/.config/ghostty/config` |
+| `Brewfile`    | Ghostty, gh, fzf, zsh-autosuggestions, zsh-syntax-highlighting. |
+| `install.sh`  | Symlinks the above into `$HOME` as `.<name>` (Ghostty into `~/.config/ghostty/config`). |
 
 ## Conventions
 
