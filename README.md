@@ -54,7 +54,7 @@ Prerequisites: macOS with [Homebrew](https://brew.sh) installed.
 
 | File          | Purpose |
 |---------------|---------|
-| `zshrc`       | History (100k, shared, deduped), fzf `Ctrl-R`/`Ctrl-T`, autosuggestions, syntax highlighting, ↑/↓ prefix search, minimal git-aware prompt. Standard emacs-style keybindings (`Ctrl-A`/`Ctrl-E`). |
+| `zshrc`       | History (100k, shared, deduped), fzf `Ctrl-R`/`Ctrl-T`, autosuggestions, syntax highlighting, ↑/↓ prefix search, robbyrussell-style prompt (no oh-my-zsh). Standard emacs-style keybindings (`Ctrl-A`/`Ctrl-E`). |
 | `zsh-aliases` | Shell + git aliases (`g`, `gs`, `ga`, `gc`, `gd`, `gr`, `gl`, `glf`, `gwc`). |
 | `gitconfig`   | Identity, `co` alias, modern defaults (`push.autoSetupRemote`, histogram diff, zdiff3 conflicts, rerere). |
 | `gitignore`   | Global ignores (macOS junk, vim swap). |

@@ -18,12 +18,18 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
 export EDITOR=vim
 
-# --- Prompt: current dir + git branch ---
-autoload -Uz vcs_info
-precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats ' %F{242}(%b)%f'
+# --- Prompt: robbyrussell (oh-my-zsh default) look, without oh-my-zsh ---
+# green ➜ (red after a failed command), cyan dir, git:(branch), yellow ✗ when dirty
+git_prompt_info() {
+  local ref
+  ref=$(command git symbolic-ref --short HEAD 2>/dev/null) \
+    || ref=$(command git rev-parse --short HEAD 2>/dev/null) || return 0
+  local dirty=""
+  [[ -n $(command git status --porcelain 2>/dev/null) ]] && dirty=" %B%F{yellow}✗%f%b"
+  echo " %B%F{blue}git:(%F{red}${ref}%F{blue})%f%b${dirty}"
+}
 setopt PROMPT_SUBST
-PROMPT='%F{cyan}%1~%f${vcs_info_msg_0_} %F{green}❯%f '
+PROMPT='%(?:%B%F{green}➜%f%b :%B%F{red}➜%f%b )%B%F{cyan}%1~%f%b$(git_prompt_info) '
 
 # --- Keybindings: standard (emacs-style) ---
 bindkey -e                        # Ctrl-A/E/W/U/K work as expected
