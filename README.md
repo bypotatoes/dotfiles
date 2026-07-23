@@ -6,7 +6,12 @@ This README doubles as **setup instructions for a coding agent** (Claude Code, e
 
 ## Fresh machine setup
 
-Prerequisites: macOS with [Homebrew](https://brew.sh) installed.
+0. **Homebrew** (skip if `brew` already works):
+   ```sh
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+   Agents: permission classifiers often block curl-pipe-to-shell — if blocked, have the
+   user run this one line themselves, then continue.
 
 1. **SSH key** (skip if `~/.ssh/id_ed25519` exists):
    ```sh
@@ -45,10 +50,19 @@ Prerequisites: macOS with [Homebrew](https://brew.sh) installed.
 
 6. **Claude Code layer** — clone and install
    [bypotatoes/dotfiles-claude](https://github.com/bypotatoes/dotfiles-claude)
-   (settings, skills, memory) per its README.
+   (settings, skills, memory) per its README:
+   ```sh
+   git clone git@github.com:bypotatoes/dotfiles-claude.git ~/Projects/dotfiles-claude
+   ~/Projects/dotfiles-claude/install.sh
+   ```
 
 7. **gh auth** — run `gh auth login --web --git-protocol ssh` in a real terminal
-   (it needs an interactive TTY for the device-code prompt).
+   (it needs an interactive TTY for the device-code prompt; agents get stuck here,
+   so hand this one to the user).
+
+Done. Ghostty comes from the Brewfile; its config is already linked by `install.sh`.
+When a work project is cloned later, seed its agent memory with
+`~/Projects/dotfiles-claude/restore-memory.sh <project-path>`.
 
 ## What's here
 
